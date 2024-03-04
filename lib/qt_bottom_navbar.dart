@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class QTBottomNavBar extends StatefulWidget {
-  const QTBottomNavBar({super.key});
+  const QTBottomNavBar({super.key, required this.bottomNavBarIndex});
+
+  final int bottomNavBarIndex;
 
   @override
   State<QTBottomNavBar> createState() => _QTBottomNavBarState();
 }
 
 class _QTBottomNavBarState extends State<QTBottomNavBar> {
-  int _selectedIndex = 1;
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
-      switch (_selectedIndex) {
+      switch (index) {
         case 0:
           context.go('/Templates');
         case 1:
@@ -36,7 +36,7 @@ class _QTBottomNavBarState extends State<QTBottomNavBar> {
         BottomNavigationBarItem(
             icon: Icon(Icons.account_circle), label: "Profile")
       ],
-      currentIndex: _selectedIndex,
+      currentIndex: widget.bottomNavBarIndex,
       selectedItemColor: Colors.purpleAccent,
       onTap: _onItemTapped,
     );

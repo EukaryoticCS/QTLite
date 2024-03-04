@@ -9,10 +9,11 @@ import 'page.dart' as qtlite_page;
 import 'homepage.dart';
 
 final _router = GoRouter(routes: [
-  GoRoute(path: '/', builder: (context, state) => MyHomePage(title: 'QTLite')),
+  
   GoRoute(
     path: '/templates',
     builder: (context, state) => qtlite_page.Page(
+      bottomNavBarIndex: 0,
       body: TemplatesList(
         templates: [
           Template(title: "Ocarina of Time 100%", creator: "Eukaryotic"),
@@ -23,9 +24,10 @@ final _router = GoRouter(routes: [
       ),
     ),
   ),
+  GoRoute(path: '/', builder: (context, state) => MyHomePage(title: 'QTLite')),
   GoRoute(
       path: '/profile',
-      builder: (context, state) => qtlite_page.Page(
+      builder: (context, state) => qtlite_page.Page(bottomNavBarIndex: 2,
           body: Checkbox(value: true, onChanged: (bool? newChecked) => {})))
 ]);
 
