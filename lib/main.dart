@@ -1,61 +1,51 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:qtlite/models/template.dart';
+import 'searchbar.dart';
+import 'templateslist.dart';
+import 'page.dart' as qtlite_page;
+import 'homepage.dart';
+
+final _router = GoRouter(routes: [
+  GoRoute(path: '/', builder: (context, state) => MyHomePage(title: 'QTLite')),
+  GoRoute(
+    path: '/templates',
+    builder: (context, state) => qtlite_page.Page(
+      body: TemplatesList(
+        templates: [
+          Template(title: "Ocarina of Time 100%", creator: "Eukaryotic"),
+          Template(
+              title: "Halo: Combat Evolved All Achievements",
+              creator: "Eukaryotic")
+        ],
+      ),
+    ),
+  ),
+  GoRoute(
+      path: '/profile',
+      builder: (context, state) => qtlite_page.Page(
+          body: Checkbox(value: true, onChanged: (bool? newChecked) => {})))
+]);
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    final ThemeData themeData =
+        ThemeData(useMaterial3: true, brightness: Brightness.dark);
+    return MaterialApp.router(
+      routerConfig: _router,
       // Application name
       title: 'QTLite',
       // Application theme data, you can set the colors for the application as
       // you want
-      theme: ThemeData(
-        // useMaterial3: true,
-        primarySwatch: Colors.purple,
-      ),
-      // A widget which will be started on application startup
-      home: MyHomePage(title: 'QTLite'),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  final String title;
-  const MyHomePage({super.key, required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    int selectedIndex = 0;
-
-    return Scaffold(
-      appBar: AppBar(
-        // The title text which will be shown on the action bar
-        title: Text(title),
-      ),
-      body: Center(
-          child: Column(children: [
-        Text(
-            style: TextStyle(fontSize: 50),
-            'Welcome to QuestTrackr Lite!',
-            textAlign: TextAlign.center),
-        TextButton(
-            style:
-                TextButton.styleFrom(textStyle: const TextStyle(fontSize: 20)),
-            onPressed: () => {},
-            child: const Text('Go to Profile'))
-      ])),
-      bottomNavigationBar:
-          BottomNavigationBar(items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-        BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle), label: "Profile")
-      ]),
+      theme: themeData,
     );
   }
 }
