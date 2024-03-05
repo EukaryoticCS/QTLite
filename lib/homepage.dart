@@ -11,7 +11,6 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return qtlite_page.Page(
-      bottomNavBarIndex: 1,
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
