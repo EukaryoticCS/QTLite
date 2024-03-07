@@ -12,12 +12,12 @@ class MySettingsPage extends StatefulWidget {
 }
 
 class _MySettingsState extends State<MySettingsPage> {
-  bool _isDarkMode = true;
+  bool _isDarkMode = false;
 
   getDarkMode() {
     final preferencesFuture = SharedPreferences.getInstance();
-    return preferencesFuture
-        .then((preferences) => {preferences.getBool("isDarkMode")});
+    preferencesFuture.then((preferences) =>
+        {_isDarkMode = preferences.getBool("isDarkMode") ?? false});
   }
 
   setDarkMode(bool isDarkMode) {
@@ -25,6 +25,12 @@ class _MySettingsState extends State<MySettingsPage> {
     preferencesFuture
         .then((preferences) => {preferences.setBool("isDarkMode", isDarkMode)});
     setState(() => _isDarkMode = isDarkMode);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getDarkMode();
   }
 
   @override
